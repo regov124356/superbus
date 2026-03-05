@@ -1,0 +1,29 @@
+<header class="header">
+  <div class="header-container">
+    <div class="header-row">
+      <a routerLink="/" class="logo">SUPERBUS</a>
+
+      <nav class="desktop-nav">
+        <button type="button" (click)="scrollToSection('home')">Start</button>
+        <button type="button" (click)="scrollToSection('news')">Aktualności</button>
+        <button type="button" (click)="scrollToSection('about')">O nas</button>
+        <button type="button" (click)="scrollToSection('contact')">Kontakt</button>
+        <button type="button" (click)="goToRoutes()">Rozkład jazdy</button>
+        <button type="button" (click)="goToBooking()">Zamów bus</button>
+      </nav>
+
+      <button type="button" class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
+        {{ isMenuOpen ? '✕' : '☰' }}
+      </button>
+    </div>
+
+    <nav class="mobile-nav" *ngIf="isMenuOpen">
+      <button type="button" (click)="scrollToSection('home')">Start</button>
+      <button type="button" (click)="scrollToSection('news')">Aktualności</button>
+      <button type="button" (click)="scrollToSection('about')">O nas</button>
+      <button type="button" (click)="scrollToSection('contact')">Kontakt</button>
+      <button type="button" (click)="goToRoutes()">Rozkład jazdy</button>
+      <button type="button" (click)="goToBooking()">Zamów bus</button>
+    </nav>
+  </div>
+</header>

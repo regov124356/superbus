@@ -1,0 +1,6 @@
+.page { padding-top: 6rem; min-height: 60vh; }
+.detail { max-width: 64rem; margin: 0 auto; padding: 0 1rem 4rem; }
+h1 { margin: 0 0 1rem; }
+p { color: #4b5563; }
+a { color: #2563eb; text-decoration: none; font-weight: 600; }
+a:hover { text-decoration: underline; }

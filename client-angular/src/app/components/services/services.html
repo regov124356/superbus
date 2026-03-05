@@ -1,0 +1,16 @@
+<section id="services" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Nasze Usługi</h2>
+      <p>Oferujemy kompleksowe usługi transportowe dostosowane do Twoich potrzeb</p>
+    </div>
+
+    <div class="grid">
+      <article class="card" *ngFor="let service of services">
+        <div class="icon-wrap">{{ service.icon }}</div>
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+      </article>
+    </div>
+  </div>
+</section>
