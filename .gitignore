@@ -16,7 +16,6 @@ bld/
 
 # Visual Studio
 .vs/
-.vscode/
 *.sln.iml
 *.user
 *.userosscache
@@ -70,3 +69,54 @@ Thumbs.db
 
 appsettings.json
 podatnosci.txt
+
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
+/dist
+out/
+
+# Misc
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Logs
+logs
+*.log
+
+# Cache
+.eslintcache
+.next
+.cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# Yarn
+.yarn/cache
+.yarn/install-state.gz
+.AppleDouble
+.LSOverride
