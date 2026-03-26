@@ -1,0 +1,87 @@
+<main class="routes-page">
+  <section class="hero">
+    <div class="container">
+      <h1>Rozkład jazdy</h1>
+      <p>Wybierz trasę, aby zobaczyć rozkład jazdy</p>
+    </div>
+  </section>
+
+  <section class="content container">
+    <article class="route-card">
+      <button type="button" class="route-toggle" (click)="toggleJeziorzanySection()">
+        <h2>Jeziorzany - Kryspinów</h2>
+        <span class="chevron" [class.open]="routeOpenJeziorzany">⌄</span>
+      </button>
+
+      <div class="route-content" *ngIf="routeOpenJeziorzany">
+        <h3>Rozkład Jazdy</h3>
+
+        <div class="direction-switch">
+          <button type="button" [class.active]="directionJeziorzany === 'jeziorzany-kryspinow'" (click)="setDirectionJeziorzany('jeziorzany-kryspinow')">Jeziorzany → Kryspinów</button>
+          <button type="button" [class.active]="directionJeziorzany === 'kryspinow-jeziorzany'" (click)="setDirectionJeziorzany('kryspinow-jeziorzany')">Kryspinów → Jeziorzany</button>
+        </div>
+
+        <div class="stop-block">
+          <label>Wybierz przystanek:</label>
+          <div class="stop-grid stop-grid-jeziorzany">
+            <button
+              type="button"
+              *ngFor="let stop of currentJeziorzanyStops"
+              (click)="selectStopJeziorzany(stop.name)"
+              [class.active]="selectedStopJeziorzany === stop.name"
+            >
+              {{ stop.name }}
+            </button>
+          </div>
+        </div>
+
+        <div class="times-box" *ngIf="selectedStopJeziorzany">
+          <h4>{{ selectedStopJeziorzany }} - {{ getDirectionLabelJeziorzany() }}</h4>
+          <div class="times-grid times-grid-jeziorzany">
+            <span *ngFor="let time of selectedTimesJeziorzany">{{ time }}</span>
+          </div>
+        </div>
+
+        <div class="map-card">
+          <button type="button" class="map-toggle" (click)="toggleMapJeziorzany()">
+            <h3>Mapa trasy</h3>
+            <span class="chevron" [class.open]="mapOpenJeziorzany">⌄</span>
+          </button>
+          <div class="map-wrap" *ngIf="mapOpenJeziorzany">
+            <div class="map-box map-box-large" #jeziorzanyMap></div>
+          </div>
+        </div>
+
+        <details class="full-schedule">
+          <summary>Pokaż pełny rozkład</summary>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Przystanek</th>
+                  <th *ngFor="let _ of jeziorzanySchedule[0].times; let index = index">Kurs {{ index + 1 }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of jeziorzanySchedule; let rowIndex = index" [class.alt]="rowIndex % 2 === 0">
+                  <td>{{ row.stop }}</td>
+                  <td *ngFor="let time of row.times">{{ time }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <div class="info-box">
+          <h4>Ważne Informacje</h4>
+          <ul>
+            <li>✓ Rozkład obowiązuje od soboty do niedzieli</li>
+            <li>✓ Każdy przystanek jest na żądanie</li>
+            <li>✓ Bilet kosztuje 4 zł, z kartą lisiecką jest za darmo</li>
+            <li>✓ W święta nie kursuje</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </section>
+</main>
