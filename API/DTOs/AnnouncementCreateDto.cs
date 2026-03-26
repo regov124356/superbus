@@ -1,21 +1,15 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace API.Entities;
+namespace API.DTOs;
 
-public class Announcement
+public class AnnouncementCreateDto
 {
-    [Key]
-    public int Id { get; set; }
-
     [MaxLength(100)]
+    [Required]
     public required string Title { get; set; }
-
     [MaxLength(1000)]
+    [Required]
     public required string Content { get; set; }
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
     public bool IsActive { get; set; } = true;
 }
