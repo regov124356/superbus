@@ -1,0 +1,20 @@
+<section id="about" class="section">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <h2>O SuperBus</h2>
+        <p>Firma SUPER BUS powstała w styczniu 2000 roku, rozpoczynając swoją działalność 14-osobowym Fordem Transitem na trasie Baczyn-Kraków. W ciągu ponad 26 lat działalności firma dynamicznie się rozwijała, systematycznie powiększając flotę o coraz nowocześniejsze pojazdy oraz otwierając nowe połączenia.</p>
+        <p>Dziś SUPER BUS to kompleksowa firma transportowa oferująca szeroki zakres usług: przewozy pracowników dla firm, obsługę komunikacyjną szkół, organizację wycieczek turystycznych, transport gości weselnych oraz obsługę różnorodnych eventów i imprez.</p>
+        <p>Dysponujemy flotą ponad 20 nowoczesnych pojazdów, które regularnie przechodzą przeglądy techniczne. Nasi doświadczeni kierowcy gwarantują bezpieczną i komfortową podróż.</p>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card" *ngFor="let stat of stats">
+          <div class="stat-icon">{{ stat.icon }}</div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

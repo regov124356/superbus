@@ -667,7 +667,7 @@ export function RoutesPage() {
                               </div>
 
                               {/* Mapa */}
-                              <div className="h-96 md:h-[500px] border rounded-lg overflow-hidden">
+                              <div className="h-[500px] md:h-[700px] border rounded-lg overflow-hidden">
                                 <MapContainer center={centerJeziorzany} zoom={13} style={{ height: '100%', width: '100%' }} scrollWheelZoom={true}>
                                   <TileLayer
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

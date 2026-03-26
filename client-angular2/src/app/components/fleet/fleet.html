@@ -1,0 +1,23 @@
+<section id="fleet" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Nasza Flota</h2>
+      <p>Nowoczesne pojazdy wyposażone w najwyższy standard komfortu</p>
+    </div>
+
+    <div class="grid">
+      <article class="card" *ngFor="let bus of buses">
+        <div class="image-wrap">
+          <img [src]="bus.image" [alt]="bus.name" />
+        </div>
+        <div class="card-body">
+          <h3>{{ bus.name }}</h3>
+          <p class="capacity">{{ bus.capacity }}</p>
+          <ul>
+            <li *ngFor="let feature of bus.features">✓ {{ feature }}</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

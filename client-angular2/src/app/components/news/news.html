@@ -1,0 +1,26 @@
+<section id="news" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Aktualności</h2>
+      <p>Bądź na bieżąco z najnowszymi informacjami SuperBus</p>
+    </div>
+
+    <div class="grid">
+      <article class="card" *ngFor="let item of news">
+        <header class="card-top">
+          <div class="top-row">
+            <span class="badge" [ngClass]="item.badgeClass">{{ item.badge }}</span>
+            <span class="top-icon"><span class="material-symbols-outlined mono-icon">{{ item.icon }}</span></span>
+          </div>
+          <p>{{ item.date }}</p>
+        </header>
+
+        <div class="card-body">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+          <button type="button" (click)="openNews(item.id)">Zobacz więcej</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

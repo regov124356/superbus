@@ -1,0 +1,64 @@
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>O SuperBus</h2>
+      <p>Poznaj naszą firmę, usługi i nowoczesną flotę pojazdów</p>
+    </div>
+
+    <div class="history-box">
+      <div class="history-grid">
+        <div>
+          <h3>Nasza Historia</h3>
+          <p>Firma SUPER BUS powstała w styczniu 2000 roku, rozpoczynając swoją działalność 14-osobowym Fordem Transitem na trasie Baczyn-Kraków. W ciągu ponad 26 lat działalności firma dynamicznie się rozwijała, systematycznie powiększając flotę o coraz nowocześniejsze pojazdy oraz otwierając nowe połączenia.</p>
+          <p>Dziś SUPER BUS to kompleksowa firma transportowa oferująca szeroki zakres usług: przewozy pracowników dla firm, obsługę komunikacyjną szkół, organizację wycieczek turystycznych, transport gości weselnych oraz obsługę różnorodnych eventów i imprez.</p>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card" *ngFor="let stat of stats">
+            <div class="stat-icon"><span class="material-symbols-outlined mono-icon">{{ stat.icon }}</span></div>
+            <div class="stat-value">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <h3>Co robimy?</h3>
+        <p>Oferujemy kompleksowe usługi transportowe dostosowane do różnych potrzeb</p>
+      </div>
+      <div class="service-grid">
+        <article class="service-card" *ngFor="let service of services">
+          <div class="service-icon"><span class="material-symbols-outlined mono-icon">{{ service.icon }}</span></div>
+          <h4>{{ service.title }}</h4>
+          <p>{{ service.description }}</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <h3>Nasza Flota</h3>
+        <p>Wybierz typ pojazdu, aby zobaczyć dostępne opcje</p>
+      </div>
+
+      <div class="toggle-row">
+        <button type="button" [class.active]="selectedFleetType === 'bus'" (click)="setFleetType('bus')">Busy do 35 osób</button>
+        <button type="button" [class.active]="selectedFleetType === 'coach'" (click)="setFleetType('coach')">Autokary powyżej 45 osób</button>
+      </div>
+
+      <div class="fleet-grid">
+        <article class="fleet-card" *ngFor="let bus of filteredBuses">
+          <div class="fleet-image"><img [src]="bus.image" [alt]="bus.name" /></div>
+          <div class="fleet-body">
+            <h4>{{ bus.name }}</h4>
+            <p class="capacity">{{ bus.capacity }}</p>
+            <ul>
+              <li *ngFor="let feature of bus.features">✓ {{ feature }}</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,113 @@
+<main class="booking-page">
+  <section class="booking-section">
+    <div class="container">
+      <a routerLink="/" class="back-link">← Powrót do strony głównej</a>
+
+      <div class="heading">
+        <h1>Zamów Bus</h1>
+        <p>Wypełnij formularz, a my skontaktujemy się z Tobą z ofertą dopasowaną do Twoich potrzeb</p>
+      </div>
+
+      <div class="form-card">
+        <form (submit)="onSubmit($event)" class="form-grid">
+          <section>
+            <h3>Dane kontaktowe</h3>
+            <div class="grid-2">
+              <div>
+                <label for="name">Imię i nazwisko *</label>
+                <input id="name" name="name" required [(ngModel)]="formData.name" type="text" placeholder="Jan Kowalski" />
+              </div>
+              <div>
+                <label for="email">Email *</label>
+                <input id="email" name="email" required [(ngModel)]="formData.email" type="email" placeholder="jan@example.com" />
+              </div>
+              <div class="span-2">
+                <label for="phone">Telefon kontaktowy *</label>
+                <input id="phone" name="phone" required [(ngModel)]="formData.phone" type="tel" placeholder="+48 555 555 555" />
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3>Szczegóły trasy</h3>
+            <div class="stack">
+              <div>
+                <label for="pickupLocation">Miejsce wyjazdu *</label>
+                <div class="input-with-btn">
+                  <input id="pickupLocation" name="pickupLocation" required [(ngModel)]="formData.pickupLocation" type="text" placeholder="np. Warszawa, ul. Marszałkowska 1" />
+                  <button type="button" (click)="geocodeAddress(formData.pickupLocation, 'pickup')">Szukaj na mapie</button>
+                </div>
+              </div>
+
+              <div class="stop-item" *ngFor="let stop of additionalStops; let index = index">
+                <label [for]="'stop-' + index">Przystanek pośredni {{ index + 1 }}</label>
+                <div class="input-with-btn">
+                  <input [id]="'stop-' + index" [name]="'stop-' + index" [ngModel]="stop" (ngModelChange)="updateStop(index, $event)" type="text" placeholder="np. Łódź, Dworzec Centralny" />
+                  <button type="button" (click)="geocodeAddress(stop, { type: 'intermediate', index })">Mapa</button>
+                  <button type="button" class="danger" (click)="removeStop(index)">Usuń</button>
+                </div>
+              </div>
+
+              <button type="button" class="add-stop" (click)="addStop()">+ Dodaj przystanek pośredni</button>
+
+              <div>
+                <label for="destination">Miejsce docelowe *</label>
+                <div class="input-with-btn">
+                  <input id="destination" name="destination" required [(ngModel)]="formData.destination" type="text" placeholder="np. Kraków, Rynek Główny" />
+                  <button type="button" (click)="geocodeAddress(formData.destination, 'destination')">Szukaj na mapie</button>
+                </div>
+              </div>
+
+              <div class="map-panel">
+                <h4>Mapa mojej trasy</h4>
+                <div class="map-box" #bookingMap></div>
+                <p>Kliknij na mapę, aby dodać lub zmienić punkty trasy. Użyj przycisków „Szukaj na mapie” lub „Mapa” przy każdym punkcie.</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3>Data i godzina wyjazdu</h3>
+            <div class="grid-2">
+              <div>
+                <label for="date">Data wyjazdu *</label>
+                <input id="date" name="date" required [(ngModel)]="formData.date" type="date" />
+              </div>
+              <div>
+                <label for="time">Godzina wyjazdu *</label>
+                <input id="time" name="time" required [(ngModel)]="formData.time" type="time" />
+              </div>
+              <div>
+                <label for="returnDate">Data powrotu (opcjonalnie)</label>
+                <input id="returnDate" name="returnDate" [(ngModel)]="formData.returnDate" type="date" />
+              </div>
+              <div>
+                <label for="returnTime">Godzina powrotu (opcjonalnie)</label>
+                <input id="returnTime" name="returnTime" [(ngModel)]="formData.returnTime" type="time" />
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3>Szczegóły pojazdu</h3>
+            <div>
+              <label for="passengers">Liczba pasażerów *</label>
+              <input id="passengers" name="passengers" required min="1" max="100" [(ngModel)]="formData.passengers" type="number" placeholder="Podaj liczbę osób" />
+            </div>
+          </section>
+
+          <section>
+            <label for="additionalInfo">Dodatkowe informacje</label>
+            <textarea id="additionalInfo" name="additionalInfo" rows="4" [(ngModel)]="formData.additionalInfo" placeholder="Dodatkowe wymagania, przystanki po drodze, bagaż itp."></textarea>
+          </section>
+
+          <div class="notice">
+            <p>* Pola wymagane. Wszystkie dane będą traktowane poufnie zgodnie z RODO. Po wysłaniu formularza skontaktujemy się z Tobą w ciągu 24 godzin z ofertą cenową.</p>
+          </div>
+
+          <button type="submit" class="submit-btn">Wyślij zapytanie ofertowe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
