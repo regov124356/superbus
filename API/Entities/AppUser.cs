@@ -7,7 +7,7 @@ namespace API.Entities;
 public class AppUser
 {
     [Key]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     [MaxLength(50)]
     public required string Username { get; set; }
@@ -16,7 +16,7 @@ public class AppUser
     public required string PasswordHash { get; set; }
 
     [MaxLength(50)]
-    public required string Role { get; set; } = Roles.Admin;
+    public required string Role { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? LastLogin { get; set; }
     public bool IsActive { get; set; } = true;

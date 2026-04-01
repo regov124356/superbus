@@ -1,38 +1,36 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using API.Data;
 using API.DTOs;
-using API.Constants;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using API.Entities;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/announcements")]
     [ApiController]
     public class AnnouncementController(AppDbContext context) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAnnouncements(PaginationParamsDto paginationParams)
+        public async Task<IActionResult> GetAnnouncements([FromQuery] PaginationParamsDto paginationParams)
         {
-            if (paginationParams.PageNumber < 1) paginationParams.PageNumber = 1;
-            if (paginationParams.PageSize < 1) paginationParams.PageSize = 10;
+            var offset = ((long)paginationParams.PageNumber - 1) * paginationParams.PageSize;
+            if (offset > int.MaxValue)
+                return BadRequest("Pagination offset is too large.");
 
             var rows = await context.Announcements
                 .AsNoTracking()
                 .Where(a => a.IsActive)
                 .OrderByDescending(a => a.UpdatedAt ?? a.CreatedAt)
                 .ThenByDescending(a => a.Id)
-                .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
+                .Skip((int)offset)
                 .Take(paginationParams.PageSize + 1)
                 .Select(a => new AnnouncementResponseDto
                 {
+                    Id = a.Id,
                     Title = a.Title,
                     Content = a.Content,
                     CreatedAt = a.CreatedAt,
-                    UpdatedAt = a.UpdatedAt
+                    UpdatedAt = a.UpdatedAt,
+                    IsActive = a.IsActive
                 }).ToListAsync();
 
             var hasNextPage = rows.Count > paginationParams.PageSize;
@@ -47,23 +45,27 @@ namespace API.Controllers
                 items
             });
         }
-        
-        [Authorize(Roles = Roles.Admin)]
-        [HttpPost]
-        public async Task<IActionResult> CreateAnnouncement(AnnouncementCreateDto request)
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetAnnouncementById(int id)
         {
-            var item = new Announcement
-            {
-                Title = request.Title,
-                Content = request.Content,
-                IsActive = request.IsActive
-             };
+            var item = await context.Announcements
+                .AsNoTracking()
+                .Where(a => a.Id == id && a.IsActive)
+                .Select(a => new AnnouncementResponseDto
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                    Content = a.Content,
+                    CreatedAt = a.CreatedAt,
+                    UpdatedAt = a.UpdatedAt,
+                    IsActive = a.IsActive
+                }).FirstOrDefaultAsync();
 
-             await context.Announcements.AddAsync(item);
-             if (await context.SaveChangesAsync() == 0) return BadRequest("Failed to create announcement");
+            if (item == null) return NotFound("Announcement not found");
 
-             return Ok();
+            return Ok(item);
         }
-
     }
 }
+

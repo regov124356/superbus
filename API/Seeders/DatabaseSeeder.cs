@@ -12,7 +12,6 @@ public static class DatabaseSeeder
     {
         var adminUsername = config["AdminAccount:Username"];
         var adminPassword = config["AdminAccount:Password"];
-        Console.WriteLine(config["AdminAccount:Username"]);
 
         if (string.IsNullOrEmpty(adminUsername) || string.IsNullOrEmpty(adminPassword))
         {

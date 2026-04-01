@@ -3,13 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API.DTOs;
 
-public class AnnouncementCreateDto
+public class AnnouncementUpdateDto
 {
     [MaxLength(100)]
-    [Required]
     public string? Title { get; set; }
     [MaxLength(1000)]
-    [Required]
     public string? Content { get; set; }
-    public bool IsActive { get; set; } = true;
+    public bool? IsActive { get; set; }
 }

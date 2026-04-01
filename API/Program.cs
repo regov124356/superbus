@@ -61,7 +61,7 @@ using (var scope = app.Services.CreateScope())
     DatabaseSeeder.SeedAdmin(context, config);
 }
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseIpRateLimiting();
 
